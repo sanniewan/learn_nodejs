@@ -1,10 +1,12 @@
 fs = require('fs');
 
-fs.readFile('script/1.txt', function (err, html) {
+const callback = function (err, html) {
     if (err) {
         throw err; 
     }
-  
+
     html_str = String.fromCharCode(...html)
     console.log(html_str)
-  });
+}
+
+fs.readFile('script/1.txt', callback);
