@@ -1,4 +1,4 @@
-// const http = require('http');
+const http = require('http');
 fs = require('fs');
 
 // request = input
@@ -13,30 +13,41 @@ fs = require('fs');
 // const server = http.createServer(requestListener);
 // server.listen(8081);
 
-console.log('http://localhost:8000')
+console.log('http://localhost:8080')
 
-// x = function (err, html) {
+// a_func = function (err, file_content_just_read) {
 //   if (err) {
 //     throw err
 //   }
 //   http.createServer(function (request, response) {
+//     // read file depends on request
 //     response.writeHeader(200, { "Content-Type": "text/html" });
-//     response.write(html);
+//     response.write(file_content_just_read);
 //     response.end();
 //   }).listen(8080);
 // }
 
+//open local file and read its contents
+// I/O operation, interact with OS, async, when it finished, it calls x (callback function) 
+// fs.readFile('html/hello.html', a_func);
 
-// fs.readFile('javascript/hello.html', x);
 
-const http = require('node:http');
+// var http = require('http');
 
-// Create a local server to receive data from
-const server = http.createServer((req, res) => {
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({
-    data: 'Hello World!'
-  }));
-});
+//visit-triggered
+http.createServer(function (request, response) {
+  console.log('Output:')
+  console.log(request.url)
 
-server.listen(8000);
+  response.writeHead(200, {'Content-Type': 'text/html'});
+
+  // JS define a string
+  // https://www.w3schools.com/js/js_strings.asp
+  //if request.url is _ then do this
+  response.write(`
+  <html>
+    ${request}
+  </html>
+  `)
+  response.end('');
+}).listen(8080);
